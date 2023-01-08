@@ -1,0 +1,64 @@
+----first query----
+SELECT * 
+FROM `students`
+WHERE YEAR(`date_of_birth`) = 1990;
+
+[160 total]
+
+
+----second query----
+SELECT * 
+FROM `courses` 
+WHERE `cfu` > 10;
+
+[479 total]
+
+
+----third query----
+SELECT * 
+FROM `students` 
+WHERE `date_of_birth` <= '1992-12-23';
+
+[3496 total]
+
+
+----fourth query----
+SELECT * 
+FROM `courses` 
+WHERE `period` = 'I semestre'
+AND `year` = '1';
+
+[286 total]
+
+
+----fifth query----
+SELECT * 
+FROM `exams` 
+WHERE `date` = '2020-06-20'
+AND `hour` > '14:00:00';
+
+[21 total]
+
+
+----sixth query----
+SELECT * 
+FROM `degrees` 
+WHERE `level` = 'magistrale';
+
+[38 total]
+
+
+----seventh query----
+SELECT COUNT(`id`) 
+FROM `departments`;
+
+[12 total]
+
+
+----eighth query----
+SELECT * 
+FROM `teachers` 
+WHERE `phone`
+IS null;
+
+[50 total]
