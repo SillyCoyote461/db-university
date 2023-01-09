@@ -1,0 +1,106 @@
+
+_- GROUP BY -_
+
+----first query----
+SELECT COUNT(`id`) AS `Iscrizioni`, YEAR(`enrolment_date`) AS `Anno`
+FROM `students` 
+GROUP BY YEAR(`enrolment_date`);
+
+
+
+----second query----
+SELECT COUNT(`id`) AS `insegnanti`, `office_address` AS `indirizzo ufficio` 
+FROM `teachers` 
+GROUP BY `office_address`;
+
+
+
+
+----third query----
+SELECT AVG(`vote`) AS `Media voti`, `exam_id` AS `esame` 
+FROM `exam_student` 
+GROUP BY `exam_id`;
+
+
+
+
+----fourth query----
+SELECT `department_id` AS `dipartimento`, COUNT(`name`) AS `numero lauree` 
+FROM `degrees` 
+GROUP BY `department_id`;
+
+
+
+_- JOIN -_
+
+
+----first query----
+SELECT `students`.`name`,`students`.`surname`, `degrees`.`name` 
+FROM `students` 
+JOIN `degrees`
+ON `degrees`.`id` = `students`.`degree_id`
+WHERE `degrees`.`name` LIKE 'Corso di Laurea in Economia';
+
+
+
+
+----second query----
+SELECT * 
+FROM `departments` 
+JOIN `degrees`
+ON `degrees`.`department_id` = `departments`.`id`
+WHERE `departments`.`name` = 'Dipartimento di Neuroscienze'
+AND `degrees`.`level` = 'magistrale';
+
+
+
+
+----third query----
+SELECT `courses`.`id` AS `id corso`, `courses`.`name` AS `corso`,`teachers`.`id` AS `id insegnante`,`teachers`.`name`,`teachers`.`surname` 
+FROM `courses` 
+JOIN `course_teacher`
+JOIN `teachers`
+ON `courses`.`id` = `course_teacher`.`course_id`
+AND `course_teacher`.`teacher_id` = `teachers`.`id`
+WHERE `teachers`.`name` LIKE 'Fulvio'
+AND `teachers`.`surname` LIKE 'Amato';
+
+
+
+----fourth query----
+SELECT *
+FROM `students` 
+JOIN `degrees`
+JOIN `departments`
+ON `degree_id`= `degrees`.`id`
+AND `department_id` = `departments`.`id`
+ORDER BY `students`.`name`,`students`.`surname` ASC;
+
+
+
+----fifth query----
+SELECT `degrees`.`id` AS `id laurea`, `degrees`.`name` AS `nome laurea`,`degrees`.`level`,`courses`.`id` AS `id corso`, `courses`.`name` AS `corso`,`teachers`.`id` AS `id insegnante`,`teachers`.`name`,`teachers`.`surname` 
+FROM `courses` 
+JOIN `course_teacher`
+JOIN `teachers`
+JOIN `degrees`
+ON `courses`.`id` = `course_teacher`.`course_id`
+AND `course_teacher`.`teacher_id` = `teachers`.`id`
+AND `degree_id`=`degrees`.`id`;
+
+
+----sixth query----
+SELECT `teachers`.`id` AS `id insegnante`,`teachers`.`name`,`teachers`.`surname`, `departments`.`id` AS `id dipartimento`, `departments`.`name` AS `nome dipartimento`
+FROM `courses` 
+JOIN `course_teacher`
+JOIN `teachers`
+JOIN `degrees`
+JOIN `departments`
+ON `courses`.`id` = `course_teacher`.`course_id`
+AND `course_teacher`.`teacher_id` = `teachers`.`id`
+AND `degree_id`=`degrees`.`id`
+AND `department_id`=`departments`.`id`
+WHERE `departments`.`name` LIKE '%matematica%';
+
+
+----seventh query----
